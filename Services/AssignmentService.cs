@@ -63,8 +63,8 @@ namespace Disaster_Resource_Allocation_API.Services
                     }
 
                     areaAssignment.isHasTruckTimeAvailble = true;
-                    bool canMeetAllResources = true;
 
+                    bool canMeetAllResources = true;
                     foreach (var requiredResource in area.RequiredResources)
                     {
                         if (!truck.AvailableResources.TryGetValue(requiredResource.Key, out var availableAmount) || availableAmount < requiredResource.Value)

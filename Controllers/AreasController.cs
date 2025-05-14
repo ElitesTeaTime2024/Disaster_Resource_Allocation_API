@@ -61,26 +61,6 @@ namespace Disaster_Resource_Allocation_API.Controllers
             }
         }
 
-        [HttpGet("{areaId}")]
-        [ApiExplorerSettings(IgnoreApi = true)]
-        [ProducesResponseType(typeof(AffectedArea), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(IEnumerable<ErrorResponse>), StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetAreaById(string areaId, [FromServices] IAreaRepository areaRepository)
-        {
-            try
-            {
-                var area = await areaRepository.GetAreaByIdAsync(areaId);
-                if (area == null) return NotFound();
-                return Ok(area);
-            }
-            catch (Exception ex)
-            {
-                ErrorResponse errorResponse = new ErrorResponse();
-                errorResponse.errorMsg = ex.Message;
-                return StatusCode(500, errorResponse);
-            }
-        }
-
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(IEnumerable<ErrorResponse>), StatusCodes.Status500InternalServerError)]

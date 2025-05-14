@@ -60,26 +60,6 @@ namespace Disaster_Resource_Allocation_API.Controllers
             }
         }
 
-        [HttpGet("{truckId}")]
-        [ApiExplorerSettings(IgnoreApi = true)]
-        [ProducesResponseType(typeof(ResourceTruck), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(IEnumerable<ErrorResponse>), StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetTruckById(string truckId, [FromServices] ITruckRepository truckRepository)
-        {
-            try
-            {
-                var truck = await truckRepository.GetTruckByIdAsync(truckId);
-                if (truck == null) return NotFound();
-                return Ok(truck);
-            }
-            catch (Exception ex)
-            {
-                ErrorResponse errorResponse = new ErrorResponse();
-                errorResponse.errorMsg = ex.Message;
-                return StatusCode(500, errorResponse);
-            }
-        }
-
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(IEnumerable<ErrorResponse>), StatusCodes.Status500InternalServerError)]
